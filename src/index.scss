@@ -1,0 +1,57 @@
+// @import './carbon';
+// @import './ibm-cloud-and-cognitive';
+@import 'carbon-components/scss/globals/scss/styles.scss';
+
+.severity-breakdown {
+    display: flex;
+  
+    &-item {
+      @include carbon--type-style('body-short-01');
+      align-items: center;
+      display: flex;
+      margin-right: 0.5rem;
+  
+      &--story {
+        margin-right: 0.25rem;
+      }
+  
+      &__icon {
+        height: 1rem;
+        margin-right: 0.5rem;
+        width: 1rem;
+      }
+    }
+  
+    .bx--tooltip__label .bx--tooltip__trigger {
+      margin-left: 0 !important;
+    }
+      
+    &-tooltip {
+      width: auto;
+  
+      &-item {
+        @include carbon--type-style('body-short-01');
+        align-items: center;
+        display: flex;
+        padding-bottom: 6.5px;
+      }
+  
+      &-item__text {
+        padding-left: 4px;
+      }
+  
+      &-tag {
+        cursor: pointer;
+  
+        &:hover {
+          background-color: $ui-05;
+          color: $text-04;
+        }
+      }
+  
+      &-text {
+        @include carbon--type-style('body-short-01');
+      }
+    }
+  }
+  

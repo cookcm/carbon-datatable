@@ -26,9 +26,9 @@ const Table1 = (props) => {
         }
     }
     const sortRow = (
-        cellA: any,
-        cellB: any,
-        { sortDirection, locale, sortStates, compare }: any
+        cellA,
+        cellB,
+        { sortDirection, locale, sortStates, compare }
     ) => {
         if (sortDirection === sortStates.DESC) {
         return compare(cellB, cellA, locale);
