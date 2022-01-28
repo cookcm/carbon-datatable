@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ListCwTable from "../components/containers/ListCwTable";
+import ListCwTable from "../containers/ListCwTable";
 import TableSidePanel from "../components/common/TableSidePanel";
 import { Column, Grid, Row } from 'carbon-components-react';
 
@@ -24,7 +24,7 @@ const Page = () => {
       <Grid narrow>
          <Row>
             <Column className='bx--col-padding'>
-              <h2>Datatable2</h2>
+              <h2>list of crosswords</h2>
               <ListCwTable
                 onClick={onClick}
                 onMoreDetails={(resource) => {

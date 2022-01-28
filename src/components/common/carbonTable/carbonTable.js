@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
-import { DataTable, Button, Link as CarbonLink } from "carbon-components-react";
+import {
+  DataTable,
+  Button,
+  Link as CarbonLink,
+  Pagination
+} from "carbon-components-react";
 import {
   TrashCan16 as Delete,
   Printer16 as Print,
@@ -8,8 +13,11 @@ import {
   DataStructured32
 } from "@carbon/icons-react";
 import "@carbon/ibm-products/css/index.min.css";
-import handleEnterKey from "./handleEnterKey";
-import SeverityBreakdown from './severityBreakdown';
+import handleEnterKey from "../handleEnterKey";
+import SeverityBreakdown from "../severityBreakdown";
+import { TagsBreakdown } from "../tags-breakdown";
+import { TagSet } from "@carbon/ibm-products";
+import { types as tagTypes } from "carbon-components-react/es/components/Tag/Tag";
 
 // import { useHistory } from " react-router-dom";
 const {
@@ -39,8 +47,9 @@ const CarbonTable = (props) => {
 
   const [currentCell, setCurrentCell] = useState(null);
   const [cellId, setCellId] = useState(null);
-
-  
+  const [pageSize, setPageSize] = useState(3);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(rows.length);
 
   const createTableDefinitionMap = (headerDefinition) => {
     const tableDefinitionMap = {};
@@ -68,12 +77,53 @@ const CarbonTable = (props) => {
         {row.cells.map((cell, cellIndex) => {
           const cellDef = tableDefinitionMap[cell.info.header];
           let finalValue = cell.value;
-          if (cellDef?.dataType === 'severity') {
-            finalValue = '';
+          if (cellDef?.dataType === "severity") {
+            finalValue = "";
             if (cell.value) {
-                finalValue = <SeverityBreakdown id={row.id + 'sev'} className='applications-table__severity-column' severityCounts={cell.value} maxVisible={3} OverflowType='Tag'/>;
+              finalValue = (
+                <SeverityBreakdown
+                  i
+                  d={row.id + "sev"}
+                  className="table__severity-column"
+                  severityCounts={cell.value}
+                  maxVisible={3}
+                  OverflowType="Tag"
+                />
+              );
             }
-        } else if (cellDef?.dataType === "icon") {
+          } else if (cellDef?.dataType === "tags") {
+            finalValue = "";
+            if (cell.value) {
+              finalValue = (
+                <div className="table__tag-column">
+                  <TagsBreakdown tags={cell.value} />
+                </div>
+              );
+            }
+          } else if (cellDef?.dataType === "tagSet") {
+            finalValue = "";
+            if (cell.value) {
+              const tags = [];
+              for (let i = 0; i < cell.value.length; i++) {
+                const label = cell.value[i];
+                const type = tagTypes[i % tagTypes.length];
+
+                tags.push({ type, label });
+              }
+              finalValue = (
+                <div className="table__tag-set-column">
+                  <TagSet
+                    tags={tags}
+                    allTagsModalSearchLabel="Filter tags"
+                    allTagsModalTile="All tags"
+                    allTagsModalSearchPlaceholderText="Filter tags"
+                    showAllTagsLabel="Show all tags"
+                    maxVisible={3}
+                  />
+                </div>
+              );
+            }
+          } else if (cellDef?.dataType === "icon") {
             finalValue = <DataStructured32 className={"table__icon"} />;
             if (
               cell.value &&
@@ -85,7 +135,7 @@ const CarbonTable = (props) => {
               finalValue = rows[rowIndex][cellDef.key];
             }
             return (
-              <TableCell className="table__icon-cell" key={cell.id}>
+              <TableCell className="cw_table__icon-cell" key={cell.id}>
                 {finalValue}
               </TableCell>
             );
@@ -125,14 +175,37 @@ const CarbonTable = (props) => {
     console.log(selectedRows.length + "Printed");
   };
 
- 
+  // const handlePaginationChange = useCallback(
+  //   ({ page: nextPageNumber, pageSize: nextPageSize }) => {
+  //     if (pageSize !== nextPageSize) {
+  //       setPageSize(nextPageSize);
+  //       setPage(1);
+  //     }
+  //     if (page !== nextPageNumber) {
+  //       setPage(nextPageNumber);
+  //     }
+  //   },
+  //   [page, pageSize]
+  // );
+
+  // const sortRow = (
+  //   cellA: any,
+  //   cellB: any,
+  //   { sortDirection, locale, sortStates, compare }: any
+  // ) => {
+  //   if (sortDirection === sortStates.DESC) {
+  //     return compare(cellB, cellA, locale);
+  //   }
+  //   return compare(cellA, cellB, locale);
+  // };
 
   return (
     <div>
-     
       <div id="cw-table">
-        <DataTable rows={rows} headers={headerDefinition}>
+        <DataTable rows={rows} headers={headerDefinition} >
           {({
+            emptyState,
+            pagination,
             rows,
             headers,
             getHeaderProps,
@@ -146,6 +219,7 @@ const CarbonTable = (props) => {
             getTableContainerProps
           }) => {
             const batchActionProps = getBatchActionProps();
+            // let newRows = rows.splice(page - 1, pageSize);
             return (
               <TableContainer
                 title="DataTable"
@@ -201,47 +275,69 @@ const CarbonTable = (props) => {
                     <TableRow>
                       <TableSelectAll {...getSelectionProps()} />
                       {headers.map((header, i) => {
-                        if (header.dataType === 'icon') {
-                            // supress icon header
-                            return null;
-                        } else if (typeof header.colSpan !== 'undefined') {
-                            return <TableHeader colSpan={header.colSpan} className={header.className || ''} key={header.id} {...getHeaderProps({ header })}>
-                                {header.header}
-                            </TableHeader>;
+                        if (header.dataType === "icon") {
+                          // supress icon header
+                          return null;
+                        } else if (typeof header.colSpan !== "undefined") {
+                          return (
+                            <TableHeader
+                              colSpan={header.colSpan}
+                              className={header.className || ""}
+                              key={header.id}
+                              {...getHeaderProps({ header })}
+                            >
+                              {header.header}
+                            </TableHeader>
+                          );
                         }
-                        return <TableHeader key={header.id} className={header.className || ''} {...getHeaderProps({ header })}>
+                        return (
+                          <TableHeader
+                            key={header.id}
+                            className={header.className || ""}
+                            {...getHeaderProps({ header })}
+                          >
                             {header.header}
-                        </TableHeader>;
-                    })}
+                          </TableHeader>
+                        );
+                      })}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map(
-                      (row, rowIndex) => (
-                        
-                        <TableRow key={row.id} {...getRowProps({ row })}>
-                          <TableSelectRow {...getSelectionProps({ row })} />
-                          {renderRowCells(row, rowIndex)}
-                        </TableRow>
-                      )
-                      // (
-                      //   <TableRow id={`row${i}`} key={i} {...getRowProps({ row })}>
-                      //     <TableSelectRow {...getSelectionProps({ row })} />
-                      //     {row.cells.map((cell) => {
-                      //       const cellKey = cell.id.split(":")[1];
-                      //       if (cellKey === CELL_NAME_KEY) {
-                      //         return getNameCell(cell);
-                      //       } else if (cellKey === CELL_DETAILS_KEY) {
-                      //         return getDetailsCell(cell);
-                      //       } else {
-                      //         return getTableCell(cell);
-                      //       }
-                      //     })}
-                      //   </TableRow>
-                      // )
-                    )}
+                    {rows.map((row, rowIndex) => (
+                      <TableRow key={row.id} {...getRowProps({ row })}>
+                        <TableSelectRow {...getSelectionProps({ row })} />
+                        {renderRowCells(row, rowIndex)}
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
+                {/* {rows.length === 0 ? emptyState : null} */}
+                {/* { pagination ? */}
+                {/* <Pagination
+                  backwardText="Previous page"
+                  disabled={false}
+                  forwardText="Next page"
+                  itemsPerPageText="Items per page:"
+                  onChange={handlePaginationChange}
+                  pageInputDisabled={false}
+                  pageNumberText="Page Number"
+                  pageSize={3}
+                  pageSizes={[3, 5, 10, 15]}
+                  pagesUnknown={false}
+                  totalItems={totalItems}
+                /> */}
+                {/* <Pagination
+                      className='table__pagination'
+                      data-testid="TablePagination"
+                      totalItems={pagination.totalItems}
+                      backwardText="Previous page"
+                      forwardText="Next page"
+                      pageSize={pagination.pageSize}
+                      page={pagination.page}
+                      pageSizes={pagination.pageSizes}
+                      itemsPerPageText="Items per page"
+                      onChange={pagination.onChange}
+                  />  */}
               </TableContainer>
             );
           }}

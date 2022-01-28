@@ -1,0 +1,36 @@
+// @import '../../../globals/styles/_carbon-settings';
+@import 'carbon-components/scss/components/tag/tag';
+
+.tag-breakdown{
+    display: flex;
+    width: 100%;;
+    &-container {
+        overflow: hidden;
+        max-height: 34px;
+    }
+    &-item {
+        float: left;
+        white-space: nowrap;
+    }
+    .bx--tooltip__label .bx--tooltip__trigger {
+        margin-left: 0px !important;
+    }
+
+    &-tooltip {
+        width: auto;
+        cursor: pointer !important;
+        &-item {
+            display: flex;
+            align-items:center;
+            padding-bottom: 6.5px;
+        }
+
+        &-tag {
+            cursor: pointer !important;
+            &:hover {
+                background-color: $ui-05;
+                color: $text-04;
+            }
+        }
+    }
+}

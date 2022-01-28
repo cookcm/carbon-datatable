@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { getSeverityIdentifiers, severityRank } from './statusHelper';
 import { Tooltip, Tag } from 'carbon-components-react';
 import classnames from 'classnames';
-// require('../../../scss/components/severity-breakdown/severity-breakdown.scss');
+
 
 const SeverityBreakdown = function(props) {
     const {
         severityCounts,
         maxVisible,
         id,
-        overflowType,
         className
     } = props;
     if (!severityCounts) {
@@ -47,34 +46,31 @@ const SeverityBreakdown = function(props) {
         </div>);
     }
     let overflowComponent = null;
-    // if (keys.length > maxVisible) {
-    //     const sevValues = [];
-    //     keys.forEach(key => {
-    //         const sev = getSeverityIdentifiers(key);
-    //         const SevIcon = sev.iconDark;
-    //         const value = ` ${sev.name}  ${visibleSevs[key]}`;
-    //         sevValues.push(<div key={id + value} className='severity-breakdown-tooltip-item'>
-    //             <SevIcon className='severity-breakdown-item__icon'/>
-    //             {value}
-    //         </div>);
-    //     });
-    //     // eslint-disable-next-line react/display-name
-    //     const overflowTag = React.forwardRef(() => (
-    //         overflowType === 'Tag' ?
-    //             <Tag className='severity-breakdown-tooltip-tag'>{`+${keys.length - maxVisible}`}</Tag> :
-    //             <Tag className='severity-breakdown-tooltip-tag'>{`+${keys.length - maxVisible}`}</Tag>
-    //             // <div className='severity-breakdown-tooltip-text'>{window.ASM_RESOURCES.SEVERITY_BREAKDOWN_OVERFLOW.replace('${number}', keys.length - maxVisible)}</div>
-    //     ));
-    //     overflowComponent = <Tooltip
-    //         id={`severityBreakdownTooltip-${id}`}
-    //         triggerId={`severityBreakdownTooltipTriggerId-${id}`}
-    //         className='severity-breakdown-tooltip'
-    //         direction={'top'}
-    //         renderIcon={overflowTag}
-    //     >
-    //         {sevValues}
-    //     </Tooltip>;
-    // }
+    if (keys.length > maxVisible) {
+        const sevValues = [];
+        keys.forEach(key => {
+            const sev = getSeverityIdentifiers(key);
+            const SevIcon = sev.iconDark;
+            const value = ` ${sev.name}  ${visibleSevs[key]}`;
+            sevValues.push(<div key={id + value} className='severity-breakdown-tooltip-item'>
+                {SevIcon}
+                {value}
+            </div>);
+        });
+        // eslint-disable-next-line react/display-name
+        const overflowTag = React.forwardRef(() => (
+                <Tag className='severity-breakdown-tooltip-tag'>{`+${keys.length - maxVisible}`}</Tag> 
+        ));
+        overflowComponent = <Tooltip
+            id={`severityBreakdownTooltip-${id}`}
+            triggerId={`severityBreakdownTooltipTriggerId-${id}`}
+            className='severity-breakdown-tooltip'
+            direction={'top'}
+            renderIcon={overflowTag}
+        >
+            {sevValues}
+        </Tooltip>;
+    }
     return (
         <div className={classnames('severity-breakdown', className)}>
             {sevsComponent}
