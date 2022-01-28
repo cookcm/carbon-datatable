@@ -95,6 +95,18 @@ const ListCwTable = (props) => {
             More Details
         </Link>;
     };
+    
+  //   const [pageSize, setPageSize] = useState(3);
+  //   const [page, setPage] = useState(1);
+  //   const [totalItems, setTotalItems] = useState(rows.length);
+  //   const pagination = {
+  //     page,
+  //     totalItems,
+  //     pageSize,
+  //     pageSizes,
+  //     numberOfMergedItems,
+  //     onChange: handlePaginationChange
+  // }
   return  (
         <CarbonTable
             id={'cwListTable'}

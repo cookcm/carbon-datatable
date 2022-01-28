@@ -42,14 +42,18 @@ const CELL_DETAILS_KEY = "details";
 
 const CarbonTable = (props) => {
   const { rows, headerDefinition, renderActions, renderOverflow } = props;
-
+  const pageSizes = [3, 5, 10, 15];
   const [open, setOpen] = useState(false);
 
   const [currentCell, setCurrentCell] = useState(null);
   const [cellId, setCellId] = useState(null);
-  const [pageSize, setPageSize] = useState(3);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(pageSizes[0]);
   const [totalItems, setTotalItems] = useState(rows.length);
+
+  const [startRow, setStartRow] = useState(0);
+  const [endRow, setEndRow] = useState(pageSizes[0]);
+  const [newRows, setNewRows] = useState(rows);
 
   const createTableDefinitionMap = (headerDefinition) => {
     const tableDefinitionMap = {};
@@ -175,18 +179,39 @@ const CarbonTable = (props) => {
     console.log(selectedRows.length + "Printed");
   };
 
-  // const handlePaginationChange = useCallback(
-  //   ({ page: nextPageNumber, pageSize: nextPageSize }) => {
+  // const onPageChanged = useCallback(
+  //   ({ currentPage: nextPageNumber, pageSize: nextPageSize }) => {
   //     if (pageSize !== nextPageSize) {
   //       setPageSize(nextPageSize);
-  //       setPage(1);
+  //       setCurrentPage(1);
   //     }
-  //     if (page !== nextPageNumber) {
-  //       setPage(nextPageNumber);
+  //     if (currentPage !== nextPageNumber) {
+  //       setCurrentPage(nextPageNumber);
   //     }
   //   },
-  //   [page, pageSize]
+  //   [currentPage, pageSize]
   // );
+
+  const onPageChanged = (evt) => {
+    if (evt.page !== currentPage || evt.pageSize !== pageSize) {
+      setCurrentPage(evt.page);
+      setPageSize(evt.pageSize);
+      setStartRow(evt.pageSize * (evt.page - 1));
+      setEndRow(evt.pageSize * evt.page)
+    }
+  };
+
+  
+
+  const getPageRangeText = (total) => {
+    return total > 1 ? `of ${total} pages` : `of 1 page`;
+  };
+
+  const getItemsRangeText = (min, max, total) => {
+    return `${min}-${max} of ${total} items`;
+  };
+
+  
 
   // const sortRow = (
   //   cellA: any,
@@ -202,7 +227,10 @@ const CarbonTable = (props) => {
   return (
     <div>
       <div id="cw-table">
-        <DataTable rows={rows} headers={headerDefinition} >
+        <DataTable
+          rows={newRows.slice(startRow, endRow)}
+          headers={headerDefinition}
+        >
           {({
             emptyState,
             pagination,
@@ -219,7 +247,6 @@ const CarbonTable = (props) => {
             getTableContainerProps
           }) => {
             const batchActionProps = getBatchActionProps();
-            // let newRows = rows.splice(page - 1, pageSize);
             return (
               <TableContainer
                 title="DataTable"
@@ -313,31 +340,20 @@ const CarbonTable = (props) => {
                 </Table>
                 {/* {rows.length === 0 ? emptyState : null} */}
                 {/* { pagination ? */}
-                {/* <Pagination
+                <Pagination
                   backwardText="Previous page"
                   disabled={false}
                   forwardText="Next page"
                   itemsPerPageText="Items per page:"
-                  onChange={handlePaginationChange}
+                  onChange={onPageChanged}
                   pageInputDisabled={false}
                   pageNumberText="Page Number"
-                  pageSize={3}
-                  pageSizes={[3, 5, 10, 15]}
+                  page={currentPage}
+                  pageSize={pageSize}
+                  pageSizes={pageSizes}
                   pagesUnknown={false}
                   totalItems={totalItems}
-                /> */}
-                {/* <Pagination
-                      className='table__pagination'
-                      data-testid="TablePagination"
-                      totalItems={pagination.totalItems}
-                      backwardText="Previous page"
-                      forwardText="Next page"
-                      pageSize={pagination.pageSize}
-                      page={pagination.page}
-                      pageSizes={pagination.pageSizes}
-                      itemsPerPageText="Items per page"
-                      onChange={pagination.onChange}
-                  />  */}
+                />
               </TableContainer>
             );
           }}
