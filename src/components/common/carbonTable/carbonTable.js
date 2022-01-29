@@ -185,13 +185,14 @@ const CarbonTable = (props) => {
     }
   };
 
-  const getPageRangeText = (total) => {
-    return total > 1 ? `of ${total} pages` : `of 1 page`;
-  };
+  //For translation
+  // const getPageRangeText = (total) => {
+  //   return total > 1 ? `of ${total} pages` : `of 1 page`;
+  // };
 
-  const getItemsRangeText = (min, max, total) => {
-    return `${min}-${max} of ${total} items`;
-  };
+  // const getItemsRangeText = (min, max, total) => {
+  //   return `${min}-${max} of ${total} items`;
+  // };
 
   const createHeader = (header, getHeaderProps) => {
     const props = getHeaderProps({ header });
@@ -204,6 +205,10 @@ const CarbonTable = (props) => {
 
     if (typeof header.colSpan !== "undefined") {
       headerProps = { ...headerProps, colSpan: header.colSpan };
+    }
+    if (header.key ==="tags"){
+      headerProps = { ...headerProps, className: "tag_column"}
+
     }
 
     return (

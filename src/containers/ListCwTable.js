@@ -38,7 +38,7 @@ const ListCwTable = (props) => {
     { id: 5, header: "Status", key: "status", dataType: "status" },
     {
       id: 6,
-      header: "Categories/Tags/nnnnn/nnnnnnnn/nnnnn",
+      header: "Categories",
       key: "tags",
       dataType: "tagSet",
       colSpan: 3
