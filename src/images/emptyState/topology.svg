@@ -1,0 +1,147 @@
+<svg viewBox="0 0 601 528" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-2">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-4">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-6">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-8">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-10">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-12">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-14">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <filter x="-20.3%" y="-20.3%" width="140.6%" height="140.6%" filterUnits="objectBoundingBox" id="topology-empty-state-filter-16">
+      <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"/>
+      <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+    </filter>
+    <circle id="topology-empty-state-path-1" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-3" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-5" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-7" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-9" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-11" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-13" cx="32" cy="32" r="32"/>
+    <circle id="topology-empty-state-path-15" cx="32" cy="32" r="32"/>
+  </defs>
+  <g id="disabled-topology" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity=".5">
+    <g id="Resource-/-Story" transform="translate(229 57)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-2)" xlink:href="#topology-empty-state-path-1"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-1"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Story" transform="translate(41 422)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-4)" xlink:href="#topology-empty-state-path-3"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-3"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Non-story" transform="translate(40 240)">
+      <g id="Spacer" transform="translate(75 78)">
+        <path id="spacer" d="M0 0h8v24H0z"/>
+      </g>
+      <g id="Oval-4" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-6)" xlink:href="#topology-empty-state-path-5"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-5"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Non-story" transform="translate(40 58)">
+      <g id="Spacer" transform="translate(72 78)">
+        <path id="spacer" d="M0 0h8v24H0z"/>
+      </g>
+      <g id="Oval-4" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-8)" xlink:href="#topology-empty-state-path-7"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-7"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Story" transform="translate(229 239)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-10)" xlink:href="#topology-empty-state-path-9"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-9"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Story" transform="translate(229 421)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-12)" xlink:href="#topology-empty-state-path-11"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-11"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Story" transform="translate(482 302)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-14)" xlink:href="#topology-empty-state-path-13"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-13"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <g id="Resource-/-Story" transform="translate(461 94)">
+      <g id="Resource-State" transform="translate(11)">
+        <use fill="#000" filter="url(#topology-empty-state-filter-16)" xlink:href="#topology-empty-state-path-15"/>
+        <use fill="#FFF" xlink:href="#topology-empty-state-path-15"/>
+        <circle stroke="#FFF" stroke-width="4" cx="32" cy="32" r="34"/>
+        <circle stroke="#E0E0E0" stroke-width="4" stroke-linejoin="square" cx="32" cy="32" r="30"/>
+      </g>
+    </g>
+    <path id="topology-empty-state-path-2" d="M82 126v100h3l1 1-4 8a1 1 0 01-1 0l-4-8a1 1 0 011-1h3V126h1z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-2-Copy" d="M82 308v100h3l1 1-4 8a1 1 0 01-1 0l-4-8a1 1 0 011-1h3V308h1z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-2-Copy-2" d="M272 307v100h3l1 1-4 8a1 1 0 01-1 0l-4-8a1 1 0 011-1h3V307h1z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-2-Copy-3" d="M272 125v100h3l1 1-4 8a1 1 0 01-1 0l-4-8a1 1 0 011-1h3V125h1z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-3" d="M225 268h1l8 4-8 4a1 1 0 01-1 0v-3H119v-1h106v-4z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-4" d="M471 146a1 1 0 010 1l-4 8a1 1 0 01-1 0l-2-3-161 101v-1l161-101-2-3v-1z" fill="#979797" fill-rule="nonzero"/>
+    <path id="topology-empty-state-path-5" d="M305 285l174 40v-4h1l7 6a1 1 0 010 1l-9 2a1 1 0 010-1v-3l-173-40v-1z" fill="#979797" fill-rule="nonzero"/>
+  </g>
+</svg>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   DataTable,
@@ -18,6 +18,7 @@ import SeverityBreakdown from "../severityBreakdown";
 import { TagsBreakdown } from "../tags-breakdown";
 import { TagSet } from "@carbon/ibm-products";
 import { types as tagTypes } from "carbon-components-react/es/components/Tag/Tag";
+
 
 // import { useHistory } from " react-router-dom";
 const {
@@ -41,12 +42,8 @@ const CELL_NAME_KEY = "name";
 const CELL_DETAILS_KEY = "details";
 
 const CarbonTable = (props) => {
-  const { rows, headerDefinition, renderActions, renderOverflow } = props;
+  const { rows, headerDefinition, renderActions, renderOverflow , emptyState, pagination, title, description} = props;
   const pageSizes = [3, 5, 10, 15];
-  const [open, setOpen] = useState(false);
-
-  const [currentCell, setCurrentCell] = useState(null);
-  const [cellId, setCellId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(pageSizes[0]);
   const [totalItems, setTotalItems] = useState(rows.length);
@@ -179,29 +176,14 @@ const CarbonTable = (props) => {
     console.log(selectedRows.length + "Printed");
   };
 
-  // const onPageChanged = useCallback(
-  //   ({ currentPage: nextPageNumber, pageSize: nextPageSize }) => {
-  //     if (pageSize !== nextPageSize) {
-  //       setPageSize(nextPageSize);
-  //       setCurrentPage(1);
-  //     }
-  //     if (currentPage !== nextPageNumber) {
-  //       setCurrentPage(nextPageNumber);
-  //     }
-  //   },
-  //   [currentPage, pageSize]
-  // );
-
   const onPageChanged = (evt) => {
     if (evt.page !== currentPage || evt.pageSize !== pageSize) {
       setCurrentPage(evt.page);
       setPageSize(evt.pageSize);
       setStartRow(evt.pageSize * (evt.page - 1));
-      setEndRow(evt.pageSize * evt.page)
+      setEndRow(evt.pageSize * evt.page);
     }
   };
-
-  
 
   const getPageRangeText = (total) => {
     return total > 1 ? `of ${total} pages` : `of 1 page`;
@@ -211,18 +193,25 @@ const CarbonTable = (props) => {
     return `${min}-${max} of ${total} items`;
   };
 
-  
+  const createHeader = (header, getHeaderProps) => {
+    const props = getHeaderProps({ header });
+    var headerProps = {
+      className: header.className || "",
+      key: header.id,
+      isSortHeader: header?.isSortHeader || false,
+      isSortable: header?.isSortable || false
+    };
 
-  // const sortRow = (
-  //   cellA: any,
-  //   cellB: any,
-  //   { sortDirection, locale, sortStates, compare }: any
-  // ) => {
-  //   if (sortDirection === sortStates.DESC) {
-  //     return compare(cellB, cellA, locale);
-  //   }
-  //   return compare(cellA, cellB, locale);
-  // };
+    if (typeof header.colSpan !== "undefined") {
+      headerProps = { ...headerProps, colSpan: header.colSpan };
+    }
+
+    return (
+      <TableHeader {...props} {...headerProps} {...header.headerProps}>
+        {header.header}
+      </TableHeader>
+    );
+  };
 
   return (
     <div>
@@ -232,8 +221,6 @@ const CarbonTable = (props) => {
           headers={headerDefinition}
         >
           {({
-            emptyState,
-            pagination,
             rows,
             headers,
             getHeaderProps,
@@ -247,10 +234,11 @@ const CarbonTable = (props) => {
             getTableContainerProps
           }) => {
             const batchActionProps = getBatchActionProps();
+
             return (
               <TableContainer
-                title="DataTable"
-                description="With batch actions"
+                title={title || null}
+                description={description || null}
                 {...getTableContainerProps()}
               >
                 <TableToolbar {...getToolbarProps()}>
@@ -302,30 +290,7 @@ const CarbonTable = (props) => {
                     <TableRow>
                       <TableSelectAll {...getSelectionProps()} />
                       {headers.map((header, i) => {
-                        if (header.dataType === "icon") {
-                          // supress icon header
-                          return null;
-                        } else if (typeof header.colSpan !== "undefined") {
-                          return (
-                            <TableHeader
-                              colSpan={header.colSpan}
-                              className={header.className || ""}
-                              key={header.id}
-                              {...getHeaderProps({ header })}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          );
-                        }
-                        return (
-                          <TableHeader
-                            key={header.id}
-                            className={header.className || ""}
-                            {...getHeaderProps({ header })}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        );
+                        return createHeader(header, getHeaderProps, i);
                       })}
                     </TableRow>
                   </TableHead>
@@ -338,22 +303,23 @@ const CarbonTable = (props) => {
                     ))}
                   </TableBody>
                 </Table>
-                {/* {rows.length === 0 ? emptyState : null} */}
-                {/* { pagination ? */}
-                <Pagination
-                  backwardText="Previous page"
-                  disabled={false}
-                  forwardText="Next page"
-                  itemsPerPageText="Items per page:"
-                  onChange={onPageChanged}
-                  pageInputDisabled={false}
-                  pageNumberText="Page Number"
-                  page={currentPage}
-                  pageSize={pageSize}
-                  pageSizes={pageSizes}
-                  pagesUnknown={false}
-                  totalItems={totalItems}
-                />
+                {rows.length === 0 ? emptyState : null}
+                {pagination ? (
+                  <Pagination
+                    backwardText="Previous page"
+                    disabled={false}
+                    forwardText="Next page"
+                    itemsPerPageText="Items per page:"
+                    onChange={onPageChanged}
+                    pageInputDisabled={false}
+                    pageNumberText="Page Number"
+                    page={currentPage}
+                    pageSize={pageSize}
+                    pageSizes={pageSizes}
+                    pagesUnknown={false}
+                    totalItems={totalItems}
+                  />
+                ) : null}
               </TableContainer>
             );
           }}

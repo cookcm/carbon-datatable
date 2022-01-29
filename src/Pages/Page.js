@@ -24,7 +24,7 @@ const Page = () => {
       <Grid narrow>
          <Row>
             <Column className='bx--col-padding'>
-              <h2>list of crosswords</h2>
+              <h2>List of crosswords</h2>
               <ListCwTable
                 onClick={onClick}
                 onMoreDetails={(resource) => {
