@@ -1,10 +1,15 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import  {configureStore}  from "./store";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import { configureStore } from "./store";
 import "./index.scss";
 
 import Page from "./pages/Page";
+
+const store = configureStore();
+const persistor = persistStore(store);
 
 const App = () => (
   <div className="app">
@@ -13,8 +18,10 @@ const App = () => (
 );
 
 render(
-  <Provider store={configureStore()}>
-    <App />
+  <Provider store={store}>
+    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
