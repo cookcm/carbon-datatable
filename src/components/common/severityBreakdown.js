@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getSeverityIdentifiers, severityRank } from './statusHelper';
+import { getSeverityIdentifiers, severityRank } from './severityHelper';
 import { Tooltip, Tag } from 'carbon-components-react';
 import classnames from 'classnames';
 

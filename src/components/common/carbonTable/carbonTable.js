@@ -4,20 +4,25 @@ import {
   DataTable,
   Button,
   Link as CarbonLink,
-  Pagination
+  Pagination,
+  TooltipIcon,
+  Tooltip
 } from "carbon-components-react";
 import {
   TrashCan16 as Delete,
   Printer16 as Print,
   Launch16 as Launch,
-  DataStructured32
+  DataStructured32,
+  Help16 as Help
 } from "@carbon/icons-react";
 import "@carbon/ibm-products/css/index.min.css";
 import handleEnterKey from "../handleEnterKey";
 import SeverityBreakdown from "../severityBreakdown";
 import { TagsBreakdown } from "../tags-breakdown";
-import { TagSet } from "@carbon/ibm-products";
+import { TagSet, StatusIcon } from "@carbon/ibm-products";
 import { types as tagTypes } from "carbon-components-react/es/components/Tag/Tag";
+import {  getStatusIdentifiers } from './../statusHelper';
+
 
 
 // import { useHistory } from " react-router-dom";
@@ -42,14 +47,25 @@ const CELL_NAME_KEY = "name";
 const CELL_DETAILS_KEY = "details";
 
 const CarbonTable = (props) => {
-  const { rows, headerDefinition, renderActions, renderOverflow , emptyState, pagination, title, description} = props;
-  const pageSizes = [3, 5, 10, 15];
+  const {
+    rows,
+    headerDefinition,
+    renderActions,
+    renderOverflow,
+    emptyState,
+    pagination,
+    title,
+    description,
+    pageSizes,
+    defaultPageSize
+  } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(pageSizes[0]);
+  const [pageSize, setPageSize] = useState(defaultPageSize);
   const [totalItems, setTotalItems] = useState(rows.length);
 
   const [startRow, setStartRow] = useState(0);
-  const [endRow, setEndRow] = useState(pageSizes[0]);
+  const [endRow, setEndRow] = useState(defaultPageSize);
   const [newRows, setNewRows] = useState(rows);
 
   const createTableDefinitionMap = (headerDefinition) => {
@@ -71,6 +87,79 @@ const CarbonTable = (props) => {
   useEffect(() => {
     setTableDefinition(createTableDefinitionMap(headerDefinition));
   }, [headerDefinition]);
+
+  const kinds = [
+    "incomplete",
+    "incomplete-errors",
+    "in-progress",
+    "validated",
+    "unknown",
+    "ready",
+  ];
+
+  
+
+  const createHeader = (header, getHeaderProps) => {
+    const props = getHeaderProps({ header });
+    var headerProps = {
+      className: header.className || "",
+      key: header.id,
+      isSortHeader: header?.isSortHeader || false,
+      isSortable: header?.isSortable || false
+    };
+    let content = header.header;
+
+    if (typeof header.colSpan !== "undefined") {
+      headerProps = { ...headerProps, colSpan: header.colSpan };
+    }
+    if (header.key === "tags") {
+      headerProps = { ...headerProps, className: "tag_column" };
+    }
+    if (header.hasTooltip) {
+      const sevValues = [];
+      kinds.map((kind) => {
+        const sev = getStatusIdentifiers(kind);
+        const SevIcon = sev.icon;
+        const value = sev.name;
+        sevValues.push(
+          <div key={value} className="status-breakdown-tooltip-item">
+            {SevIcon}
+            <div className="status-breakdown-tooltip-item-text">
+              {value}
+            </div>
+          </div>
+        );
+      })
+      content = (
+        <div style={{ display: "table" }}>
+          <div
+            style={{
+              paddingRight: ".25rem",
+              display: "table-cell",
+              verticalAlign: "middle"
+            }}
+          >
+            {header.header}
+          </div>
+          <div style={{ display: "table-cell", verticalAlign: "middle" }}>
+            <Tooltip
+              className="status-breakdown-tooltip"
+              direction={"top"}
+              renderIcon={Help}
+            >
+              {sevValues}
+            </Tooltip>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <TableHeader {...props} {...headerProps} {...header.headerProps}>
+        {content}
+      </TableHeader>
+    );
+  };
 
   const renderRowCells = (row, rowIndex) => {
     return (
@@ -158,6 +247,33 @@ const CarbonTable = (props) => {
                 </CarbonLink>
               );
             }
+          } else if (cellDef?.dataType === "status") {
+            const { iconDescription, kind, playTimes } = cell.value;
+            const sev = getStatusIdentifiers(kind);
+            const SevIcon = sev.icon;
+            const playTimesCount = playTimes ? playTimes : 0;
+            finalValue = (
+              <div className="status-col">
+                {SevIcon}
+                {/* <StatusIcon
+                  iconDescription={iconDescription}
+                  kind={kind}
+                  size={"md"}
+                  theme={"light"}
+                /> */}
+               
+                {iconDescription !== null && iconDescription !== undefined ? (
+                  <div className="status-col-description">
+                    {iconDescription}
+                  </div>
+                ) : null}
+                {kind === "ready" ? (
+                  <div className="status-col-playtimes">
+                    {`${playTimesCount} times`}
+                  </div>
+                ) : null}
+              </div>
+            );
           } else if (Array.isArray(finalValue)) {
             finalValue = finalValue.join(", ");
           }
@@ -193,30 +309,6 @@ const CarbonTable = (props) => {
   // const getItemsRangeText = (min, max, total) => {
   //   return `${min}-${max} of ${total} items`;
   // };
-
-  const createHeader = (header, getHeaderProps) => {
-    const props = getHeaderProps({ header });
-    var headerProps = {
-      className: header.className || "",
-      key: header.id,
-      isSortHeader: header?.isSortHeader || false,
-      isSortable: header?.isSortable || false
-    };
-
-    if (typeof header.colSpan !== "undefined") {
-      headerProps = { ...headerProps, colSpan: header.colSpan };
-    }
-    if (header.key ==="tags"){
-      headerProps = { ...headerProps, className: "tag_column"}
-
-    }
-
-    return (
-      <TableHeader {...props} {...headerProps} {...header.headerProps}>
-        {header.header}
-      </TableHeader>
-    );
-  };
 
   return (
     <div>

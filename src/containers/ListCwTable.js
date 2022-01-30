@@ -25,7 +25,12 @@ const ListCwTable = (props) => {
       dataType: "link",
       onClick
     },
-    { id: 3, header: "Severity", key: "severity", dataType: "severity" },
+    { 
+      id: 3, 
+      header: "Severity", 
+      key: "severity", 
+      dataType: "severity" 
+    },
     {
       id: 4,
       header: "Date",
@@ -35,7 +40,14 @@ const ListCwTable = (props) => {
       sortDirection: "ASC",
       dataType: "string"
     },
-    { id: 5, header: "Status", key: "status", dataType: "status" },
+    { 
+      id: 5, 
+      header: "Status", 
+      key: "status", 
+      dataType: "status" ,
+      hasTooltip: true,
+      tooltipText: "status for the creation of the grid"
+    },
     {
       id: 6,
       header: "Categories",
@@ -47,7 +59,7 @@ const ListCwTable = (props) => {
   const rows = [
     {
       id: "1",
-      name: "Mark Sandler",
+      name: "Laclos-1821",
       severity: {
         minor: 0,
         major: 50,
@@ -57,12 +69,15 @@ const ListCwTable = (props) => {
         information: 0
       },
       date: "01/07/2022",
-      status: "in progress - missing grid/clues",
+      status: {
+        kind:"incomplete",
+        iconDescription: "missing grid and clues",
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "2",
-      name: "Kirk Cuban",
+      name: "Laclos-1822",
       severity: {
         minor: 10,
         major: 0,
@@ -72,12 +87,15 @@ const ListCwTable = (props) => {
         information: 0
       },
       date: "01/07/2022",
-      status: "in progress - missing clues",
+      status: {
+        kind:"incomplete-errors",
+        iconDescription: "errors in clues",
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "3",
-      name: "Ashton Tomlinson",
+      name: "Laclos-1823",
       severity: {
         minor: 20,
         major: 0,
@@ -86,13 +104,17 @@ const ListCwTable = (props) => {
         warning: 1,
         information: 0
       },
-      date: "01/07/2022",
+      date: "01/07/2020",
       status: "grid validated",
+      status: {
+        kind:"ready",
+        iconDescription: "played",
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "4",
-      name: "Lori Jackson",
+      name: "Morel-1821",
       severity: {
         minor: 0,
         major: 0,
@@ -101,13 +123,16 @@ const ListCwTable = (props) => {
         warning: 1,
         information: 0
       },
-      date: "01/07/2022",
-      status: "grid game started",
+      date: "01/08/2022",
+      status: {
+        kind:"in-progress",
+        iconDescription: "crossword started"
+      },
       tags: ["mythology", "history", "geography", "funny", "math"]
     },
     {
       id: "5",
-      name: "Brenda Steven",
+      name: "Laclos-1825",
       severity: {
         minor: 0,
         major: 0,
@@ -117,12 +142,14 @@ const ListCwTable = (props) => {
         information: 0
       },
       date: "01/07/2022",
-      status: "grid game finished",
+      status: {
+        kind:"unknown"
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "6",
-      name: "Kimberly Dan",
+      name: "Laclos-1800",
       severity: {
         minor: 0,
         major: 20,
@@ -132,12 +159,15 @@ const ListCwTable = (props) => {
         information: 0
       },
       date: "01/07/2022",
-      status: "in progress",
+      status: {
+        kind:"validated",
+        iconDescription: "ready to play",
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "7",
-      name: "Bill Freman",
+      name: "Laclos-1801",
       severity: {
         minor: 0,
         major: 0,
@@ -147,12 +177,15 @@ const ListCwTable = (props) => {
         information: 0
       },
       date: "01/07/2022",
-      status: "in progress",
+      status: {
+        kind:"incomplete-errors",
+        iconDescription: "errors in grid"
+      },
       tags: ["mythologie", "history"]
     },
     {
       id: "8",
-      name: "Grace Aliston Page",
+      name: "Laclos-1825",
       severity: {
         minor: 20,
         major: 30,
@@ -162,7 +195,11 @@ const ListCwTable = (props) => {
         information: 20
       },
       date: "01/07/2022",
-      status: "in progress",
+      status: {
+        kind:"ready",
+        iconDescription:"played",
+        playTimes: 3
+      },
       tags: ["mythologie", "history"]
     }
   ];
@@ -213,6 +250,8 @@ const ListCwTable = (props) => {
       pagination={true}
       title="Carbon Table"
       description="With batch actions, pagination, sort, side panel, tags , status"
+      defaultPageSize={10}
+      pageSizes={[3,5,10,15]}
     />
   );
 };

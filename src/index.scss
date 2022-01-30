@@ -2,6 +2,21 @@
 // @import './ibm-cloud-and-cognitive';
 @import 'carbon-components/scss/globals/scss/styles.scss';
 
+.status-breakdown-tooltip{
+  width: auto;
+  &-item {
+    @include carbon--type-style('body-short-01');
+    align-items: center;
+    display: flex;
+    margin-right: 0.5rem;
+    padding-left: 4px;
+   
+  }
+  &-item-text{
+    padding-left:10px;
+  }
+}
+
 .severity-breakdown {
     display: flex;
   
@@ -65,4 +80,42 @@
 .tag-colum{
   min-width:4rem;
 }
+
+.status-col{
+  display:flex;
+
+  &-description {
+    padding-left: 1rem;
+  }
+
+  &-playtimes{
+    padding-left: 0.5rem;
+  }
+}
+
+.icon-red{
+  fill:#da1e28;
+}
+
+.icon-orange{
+  fill:#fc991e;
+}
+.icon-yellow{
+  fill:#f1c21b;
+}
+
+.icon-purple{
+  fill:#4F2196;
+}
+
+.icon-blue{
+  fill:#408BFC
+}
+
+
+.icon-green{
+  fill:green
+}
+
+
   
