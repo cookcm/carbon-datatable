@@ -1,121 +1,131 @@
 // @import './carbon';
 // @import './ibm-cloud-and-cognitive';
-@import 'carbon-components/scss/globals/scss/styles.scss';
+@import "carbon-components/scss/globals/scss/styles.scss";
 
-.status-breakdown-tooltip{
+.status-breakdown-tooltip {
   width: auto;
   &-item {
-    @include carbon--type-style('body-short-01');
+    @include carbon--type-style("body-short-01");
     align-items: center;
     display: flex;
     margin-right: 0.5rem;
     padding-left: 4px;
-   
   }
-  &-item-text{
-    padding-left:10px;
+  &-item-text {
+    padding-left: 10px;
   }
 }
 
 .severity-breakdown {
+  display: flex;
+
+  &-item {
+    @include carbon--type-style("body-short-01");
+    align-items: center;
     display: flex;
-  
+    margin-right: 0.5rem;
+
+    &--story {
+      margin-right: 0.25rem;
+    }
+
+    &__icon {
+      height: 1rem;
+      margin-right: 0.5rem;
+      width: 1rem;
+    }
+  }
+
+  .bx--tooltip__label .bx--tooltip__trigger {
+    margin-left: 0 !important;
+  }
+
+  &-tooltip {
+    width: auto;
+
     &-item {
-      @include carbon--type-style('body-short-01');
+      @include carbon--type-style("body-short-01");
       align-items: center;
       display: flex;
-      margin-right: 0.5rem;
-  
-      &--story {
-        margin-right: 0.25rem;
-      }
-  
-      &__icon {
-        height: 1rem;
-        margin-right: 0.5rem;
-        width: 1rem;
+      padding-bottom: 6.5px;
+    }
+
+    &-item__text {
+      padding-left: 4px;
+    }
+
+    &-tag {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $ui-05;
+        color: $text-04;
       }
     }
-  
-    .bx--tooltip__label .bx--tooltip__trigger {
-      margin-left: 0 !important;
-    }
-      
-    &-tooltip {
-      width: auto;
-  
-      &-item {
-        @include carbon--type-style('body-short-01');
-        align-items: center;
-        display: flex;
-        padding-bottom: 6.5px;
-      }
-  
-      &-item__text {
-        padding-left: 4px;
-      }
-  
-      &-tag {
-        cursor: pointer;
-  
-        &:hover {
-          background-color: $ui-05;
-          color: $text-04;
-        }
-      }
-  
-      &-text {
-        @include carbon--type-style('body-short-01');
-      }
+
+    &-text {
+      @include carbon--type-style("body-short-01");
     }
   }
+}
 
-.empty-table{
+.empty-table {
   padding: 4rem 1rem;
-  width:100%;
+  width: 100%;
   background-color: $ui-01;
   border-bottom: 1px solid $ui-03;
-} 
-
-.tag-colum{
-  min-width:4rem;
 }
 
-.status-col{
-  display:flex;
+.tag-colum {
+  min-width: 4rem;
+}
+
+.status-col {
+  display: flex;
 
   &-description {
-    padding-left: 1rem;
+    padding-left: 4px;
   }
 
-  &-playtimes{
-    padding-left: 0.5rem;
+  &-playtimes {
+    padding-left: 4px;
   }
 }
 
-.icon-red{
-  fill:#da1e28;
+.icon-red {
+  fill: #da1e28;
 }
 
-.icon-orange{
-  fill:#fc991e;
+.icon-orange {
+  fill: #fc991e;
 }
-.icon-yellow{
-  fill:#f1c21b;
-}
-
-.icon-purple{
-  fill:#4F2196;
+.icon-yellow {
+  fill: #f1c21b;
 }
 
-.icon-blue{
-  fill:#408BFC
+.icon-purple {
+  fill: #4f2196;
 }
 
-
-.icon-green{
-  fill:green
+.icon-blue {
+  fill: #408bfc;
 }
 
+.icon-green {
+  fill: green;
+}
 
-  
+.table__favorite {
+  height: 2rem;
+  width: 2rem;
+
+  svg {
+    margin: 0 0.5rem !important;
+  }
+
+  &-cell {
+    padding: 0 !important;
+    padding-right: 0.5rem !important;
+    width: 2rem;
+  }
+}

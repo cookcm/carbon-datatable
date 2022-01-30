@@ -51,6 +51,7 @@ const CarbonTable = (props) => {
     rows,
     headerDefinition,
     renderActions,
+    renderFavorites,
     renderOverflow,
     emptyState,
     pagination,
@@ -280,6 +281,7 @@ const CarbonTable = (props) => {
           return <TableCell key={cell.id + cellIndex}>{finalValue}</TableCell>;
         })}
         {renderActions ? renderActions(rows[rowIndex]) : null}
+        {renderFavorites ? renderFavorites(rows[rowIndex]): null}
         {renderOverflow ? renderOverflow(rows[rowIndex]) : null}
       </React.Fragment>
     );
