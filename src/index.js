@@ -3,12 +3,13 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import { configureStore } from "./store";
-import "./index.scss";
+import store from './stores/store'
+
 
 import Page from "./pages/Page";
+import "./index.scss";
 
-const store = configureStore();
+
 const persistor = persistStore(store);
 
 const App = () => (
@@ -19,9 +20,9 @@ const App = () => (
 
 render(
   <Provider store={store}>
-    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+    {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
       <App />
-    </PersistGate>
+    {/* </PersistGate> */}
   </Provider>,
   document.getElementById("root")
 );

@@ -280,8 +280,9 @@ const CarbonTable = (props) => {
           }
           return <TableCell key={cell.id + cellIndex}>{finalValue}</TableCell>;
         })}
-        {renderActions ? renderActions(rows[rowIndex]) : null}
+        
         {renderFavorites ? renderFavorites(rows[rowIndex]): null}
+        {renderActions ? renderActions(rows[rowIndex]) : null}
         {renderOverflow ? renderOverflow(rows[rowIndex]) : null}
       </React.Fragment>
     );

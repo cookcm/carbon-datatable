@@ -129,3 +129,28 @@
     width: 2rem;
   }
 }
+.bx--btn--icon-only::before {
+  visibility: hidden; 
+}
+.bx--btn__icon {
+  height: 16px !important;
+  width: 16px !important;
+}
+
+.table__favorite {
+  align-items: center;
+  display: flex;
+
+  .bx--assistive-text {
+    transform: translate(0, -24px) !important;
+  }
+  
+  #icon {
+    // margin: 0 0.5rem !important;
+    // margin-inline-start: 0 !important;
+    // margin-inline-end: 0 !important;
+    path {
+      fill: red;
+    }
+  }
+}
