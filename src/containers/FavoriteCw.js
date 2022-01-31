@@ -82,6 +82,9 @@ const FavoriteCw = (props) => {
         title="Favorite grids"
         defaultPageSize={3}
         pageSizes={[3, 5, 10]}
+        createButton={false}
+        withBatchAction={false}
+        withSearchBar={false}
       />
     </div>
   );

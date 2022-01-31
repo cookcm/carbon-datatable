@@ -1,6 +1,6 @@
 import React from "react";
 import { CarbonTable } from "../common/carbonTable";
-import { Link, TableCell } from "carbon-components-react";
+import { Link, TableCell, Grid, Row, Column } from "carbon-components-react";
 import { EmptyState } from "@carbon/ibm-products/lib/components";
 import notFoundSvg from "../../images/emptyState/not-found-bright.svg";
 import FavoriteButton from "../../containers/FavoriteButton";
@@ -47,38 +47,49 @@ const ListCwTable = (props) => {
   );
 
   return (
-    <div>
-      <FavoriteCw
-        allCw={rows}/>
-      <CarbonTable
-        id={"cwListTable"}
-        headerDefinition={headerDefinition}
-        rows={rows}
-        renderActions={
-          onMoreDetails
-            ? (resource) => (
-                <TableCell>
-                  <MoreDetailsLink
-                    resource={resource}
-                    onClick={onMoreDetails}
-                  />
-                </TableCell>
-              )
-            : null
-        }
-        renderFavorites={(resource) => (
-          <TableCell className="asm--applications-table__favorite-cell">
-            <FavoriteButton resourceId={resource.id} />
-          </TableCell>
-        )}
-        emptyState={emptyState}
-        pagination={true}
-        title="List of crosswords"
-        description="Type Laclos, Morel or other"
-        defaultPageSize={10}
-        pageSizes={[3, 5, 10, 15]}
-      />
-    </div>
+    <Grid fullWidth>
+      <Row className="favorite-table">
+        <Column lg={16}>
+          <FavoriteCw allCw={rows} />
+        </Column>
+      </Row>
+      <Row className="cw-table">
+        <Column lg={16}>
+          <CarbonTable
+            id={"cwListTable"}
+            headerDefinition={headerDefinition}
+            rows={rows}
+            renderActions={
+              onMoreDetails
+                ? (resource) => (
+                    <TableCell>
+                      <MoreDetailsLink
+                        resource={resource}
+                        onClick={onMoreDetails}
+                      />
+                    </TableCell>
+                  )
+                : null
+            }
+            renderFavorites={(resource) => (
+              <TableCell className="asm--applications-table__favorite-cell">
+                <FavoriteButton resourceId={resource.id} />
+              </TableCell>
+            )}
+            emptyState={emptyState}
+            pagination={true}
+            title="List of crosswords"
+            description="Type Laclos, Morel or other"
+            defaultPageSize={10}
+            pageSizes={[3, 5, 10, 15]}
+            addButton={true}
+            buttonText={"Create a grid"}
+            withBatchAction={true}
+            withSearchBar={true}
+          />
+        </Column>
+      </Row>
+    </Grid>
   );
 };
 

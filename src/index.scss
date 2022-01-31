@@ -2,6 +2,11 @@
 // @import './ibm-cloud-and-cognitive';
 @import "carbon-components/scss/globals/scss/styles.scss";
 
+.cw-table{
+  
+  padding-top:4rem;
+}
+
 .status-breakdown-tooltip {
   width: auto;
   &-item {

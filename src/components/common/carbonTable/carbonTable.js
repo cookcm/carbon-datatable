@@ -21,9 +21,7 @@ import SeverityBreakdown from "../severityBreakdown";
 import { TagsBreakdown } from "../tags-breakdown";
 import { TagSet, StatusIcon } from "@carbon/ibm-products";
 import { types as tagTypes } from "carbon-components-react/es/components/Tag/Tag";
-import {  getStatusIdentifiers } from './../statusHelper';
-
-
+import { getStatusIdentifiers } from "./../statusHelper";
 
 // import { useHistory } from " react-router-dom";
 const {
@@ -58,7 +56,11 @@ const CarbonTable = (props) => {
     title,
     description,
     pageSizes,
-    defaultPageSize
+    defaultPageSize,
+    addButton,
+    buttonText,
+    withBatchActions,
+    withSearchBar
   } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,10 +97,8 @@ const CarbonTable = (props) => {
     "in-progress",
     "validated",
     "unknown",
-    "ready",
+    "ready"
   ];
-
-  
 
   const createHeader = (header, getHeaderProps) => {
     const props = getHeaderProps({ header });
@@ -125,12 +125,10 @@ const CarbonTable = (props) => {
         sevValues.push(
           <div key={value} className="status-breakdown-tooltip-item">
             {SevIcon}
-            <div className="status-breakdown-tooltip-item-text">
-              {value}
-            </div>
+            <div className="status-breakdown-tooltip-item-text">{value}</div>
           </div>
         );
-      })
+      });
       content = (
         <div style={{ display: "table" }}>
           <div
@@ -262,7 +260,7 @@ const CarbonTable = (props) => {
                   size={"md"}
                   theme={"light"}
                 /> */}
-               
+
                 {iconDescription !== null && iconDescription !== undefined ? (
                   <div className="status-col-description">
                     {iconDescription}
@@ -280,8 +278,8 @@ const CarbonTable = (props) => {
           }
           return <TableCell key={cell.id + cellIndex}>{finalValue}</TableCell>;
         })}
-        
-        {renderFavorites ? renderFavorites(rows[rowIndex]): null}
+
+        {renderFavorites ? renderFavorites(rows[rowIndex]) : null}
         {renderActions ? renderActions(rows[rowIndex]) : null}
         {renderOverflow ? renderOverflow(rows[rowIndex]) : null}
       </React.Fragment>
@@ -342,53 +340,60 @@ const CarbonTable = (props) => {
                 {...getTableContainerProps()}
               >
                 <TableToolbar {...getToolbarProps()}>
-                  <TableBatchActions {...batchActionProps}>
-                    <TableBatchAction
-                      tabIndex={
-                        batchActionProps.shouldShowBatchActions ? 0 : -1
-                      }
-                      renderIcon={Delete}
-                      onClick={batchActionClickDelete(selectedRows)}
-                    >
-                      Delete
-                    </TableBatchAction>
-                    <TableBatchAction
-                      tabIndex={
-                        batchActionProps.shouldShowBatchActions ? 0 : -1
-                      }
-                      renderIcon={Print}
-                      onClick={batchActionClickPrint(selectedRows)}
-                    >
-                      Print
-                    </TableBatchAction>
-                  </TableBatchActions>
+                  {withBatchActions ? (
+                    <TableBatchActions {...batchActionProps}>
+                      <TableBatchAction
+                        tabIndex={
+                          batchActionProps.shouldShowBatchActions ? 0 : -1
+                        }
+                        renderIcon={Delete}
+                        onClick={batchActionClickDelete(selectedRows)}
+                      >
+                        Delete
+                      </TableBatchAction>
+                      <TableBatchAction
+                        tabIndex={
+                          batchActionProps.shouldShowBatchActions ? 0 : -1
+                        }
+                        renderIcon={Print}
+                        onClick={batchActionClickPrint(selectedRows)}
+                      >
+                        Print
+                      </TableBatchAction>
+                    </TableBatchActions>
+                  ) : null}
                   <TableToolbarContent
                     aria-hidden={batchActionProps.shouldShowBatchActions}
                   >
-                    <TableToolbarSearch
-                      persistent="true"
-                      tabIndex={
-                        batchActionProps.shouldShowBatchActions ? -1 : 0
-                      }
-                      onChange={onInputChange}
-                    />
-
-                    <Button
-                      size="small"
-                      kind="primary"
-                      href="/cw-create"
-                      target="_blank"
-                      // onClick={() => action("Add new row")}
-                      renderIcon={Launch}
-                    >
-                      Creer une grille
-                    </Button>
+                    {withSearchBar ? (
+                      <TableToolbarSearch
+                        persistent="true"
+                        tabIndex={
+                          batchActionProps.shouldShowBatchActions ? -1 : 0
+                        }
+                        onChange={onInputChange}
+                      />
+                    ) : null}
+                    {addButton ? (
+                      <Button
+                        size="small"
+                        kind="primary"
+                        href="/cw-create"
+                        target="_blank"
+                        // onClick={() => action("Add new row")}
+                        renderIcon={Launch}
+                      >
+                        {buttonText}
+                      </Button>
+                    ) : null}
                   </TableToolbarContent>
                 </TableToolbar>
                 <Table {...getTableProps()}>
                   <TableHead>
                     <TableRow>
-                      <TableSelectAll {...getSelectionProps()} />
+                      {withBatchActions ? (
+                        <TableSelectAll {...getSelectionProps()} />
+                      ) : null}
                       {headers.map((header, i) => {
                         return createHeader(header, getHeaderProps, i);
                       })}
@@ -397,7 +402,9 @@ const CarbonTable = (props) => {
                   <TableBody>
                     {rows.map((row, rowIndex) => (
                       <TableRow key={row.id} {...getRowProps({ row })}>
-                        <TableSelectRow {...getSelectionProps({ row })} />
+                        {withBatchActions ? (
+                          <TableSelectRow {...getSelectionProps({ row })} />
+                        ) : null}
                         {renderRowCells(row, rowIndex)}
                       </TableRow>
                     ))}
