@@ -86,6 +86,7 @@ const ListCwTable = (props) => {
             buttonText={"Create a grid"}
             withBatchAction={true}
             withSearchBar={true}
+            maxVisibleTags={4}
           />
         </Column>
       </Row>

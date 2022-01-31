@@ -31,12 +31,12 @@ const Page = () => {
       dataType: "link",
       onClick
     },
-    {
-      id: 3,
-      header: "Severity",
-      key: "severity",
-      dataType: "severity"
-    },
+    // {
+    //   id: 3,
+    //   header: "Severity",
+    //   key: "severity",
+    //   dataType: "severity"
+    // },
     {
       id: 4,
       header: "Date",
@@ -66,14 +66,14 @@ const Page = () => {
     {
       id: "1",
       name: "Laclos-1821",
-      severity: {
-        minor: 0,
-        major: 50,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 0,
+      //   major: 50,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2022",
       status: {
         kind: "incomplete",
@@ -84,14 +84,14 @@ const Page = () => {
     {
       id: "2",
       name: "Laclos-1822",
-      severity: {
-        minor: 10,
-        major: 0,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 10,
+      //   major: 0,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2022",
       status: {
         kind: "incomplete-errors",
@@ -102,14 +102,14 @@ const Page = () => {
     {
       id: "3",
       name: "Laclos-1823",
-      severity: {
-        minor: 20,
-        major: 0,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 20,
+      //   major: 0,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2020",
       status: "grid validated",
       status: {
@@ -121,14 +121,14 @@ const Page = () => {
     {
       id: "4",
       name: "Morel-1821",
-      severity: {
-        minor: 0,
-        major: 0,
-        critical: 70,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 0,
+      //   major: 0,
+      //   critical: 70,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/08/2022",
       status: {
         kind: "in-progress",
@@ -139,14 +139,14 @@ const Page = () => {
     {
       id: "5",
       name: "Laclos-1825",
-      severity: {
-        minor: 0,
-        major: 0,
-        critical: 30,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 0,
+      //   major: 0,
+      //   critical: 30,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2022",
       status: {
         kind: "unknown"
@@ -156,14 +156,14 @@ const Page = () => {
     {
       id: "6",
       name: "Laclos-1800",
-      severity: {
-        minor: 0,
-        major: 20,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 0,
+      //   major: 20,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2022",
       status: {
         kind: "validated",
@@ -174,14 +174,14 @@ const Page = () => {
     {
       id: "7",
       name: "Laclos-1801",
-      severity: {
-        minor: 0,
-        major: 0,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 0
-      },
+      // severity: {
+      //   minor: 0,
+      //   major: 0,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 0
+      // },
       date: "01/07/2022",
       status: {
         kind: "incomplete-errors",
@@ -192,14 +192,14 @@ const Page = () => {
     {
       id: "8",
       name: "Laclos-1825",
-      severity: {
-        minor: 20,
-        major: 30,
-        critical: 0,
-        indeterminate: 2,
-        warning: 1,
-        information: 20
-      },
+      // severity: {
+      //   minor: 20,
+      //   major: 30,
+      //   critical: 0,
+      //   indeterminate: 2,
+      //   warning: 1,
+      //   information: 20
+      // },
       date: "01/07/2022",
       status: {
         kind: "ready",

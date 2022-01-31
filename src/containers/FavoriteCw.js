@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { CarbonTable } from "./../components/common/carbonTable";
-import {selectFavorites} from '../stores/crosswordSlice'
+import { selectFavorites } from "../stores/crosswordSlice";
 import { EmptyState } from "@carbon/ibm-products/lib/components";
 import notFoundSvg from "../images/emptyState/not-found-bright.svg";
 
@@ -9,19 +9,18 @@ const FavoriteCw = (props) => {
   const { allCw } = props;
   const favorites = useSelector(selectFavorites);
 
-  const newAllCw = allCw.map(({ severity, date, tags,status, ...rest }) => rest)
+  const newAllCw = allCw.map(({ severity, date, ...rest }) => rest);
 
-  let favoriteCw =[]
-  if (favorites.length > 0){
+  let favoriteCw = [];
+  if (favorites.length > 0) {
     favoriteCw = newAllCw.filter((cw) => {
-        return(favorites.indexOf(cw.id)!== -1);
-    })
+      return favorites.indexOf(cw.id) !== -1;
+    });
   }
-  
 
   const onClick = (element) => {
-    console.log('on Click on Page')
-  }
+    console.log("on Click on Page");
+  };
 
   const headerDefinition = [
     {
@@ -40,16 +39,22 @@ const FavoriteCw = (props) => {
       isSortable: true,
       dataType: "link",
       onClick
+    },
+    {
+      id: 3,
+      header: "Status",
+      key: "status",
+      dataType: "status",
+      hasTooltip: true,
+      tooltipText: "status for the creation of the grid"
+    },
+    {
+      id: 4,
+      header: "Categories",
+      key: "tags",
+      dataType: "tagSet",
+      colSpan: 3
     }
-    // ,
-    // {
-    //   id: 5,
-    //   header: "Status",
-    //   key: "status",
-    //   dataType: "status",
-    //   hasTooltip: true,
-    //   tooltipText: "status for the creation of the grid"
-    // }
   ];
 
   const emptyState = (

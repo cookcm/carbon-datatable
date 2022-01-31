@@ -60,7 +60,8 @@ const CarbonTable = (props) => {
     addButton,
     buttonText,
     withBatchActions,
-    withSearchBar
+    withSearchBar,
+    maxVisibleTags
   } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -207,7 +208,7 @@ const CarbonTable = (props) => {
                     allTagsModalTile="All tags"
                     allTagsModalSearchPlaceholderText="Filter tags"
                     showAllTagsLabel="Show all tags"
-                    maxVisible={3}
+                    maxVisible={maxVisibleTags}
                   />
                 </div>
               );
