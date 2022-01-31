@@ -20,9 +20,9 @@ const App = () => (
 
 render(
   <Provider store={store}>
-    {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
+    <PersistGate loading={null} persistor={persistor}>
       <App />
-    {/* </PersistGate> */}
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
