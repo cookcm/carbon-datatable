@@ -85,7 +85,7 @@ const ListCwTable = (props) => {
             pageSizes={[3, 5, 10, 15]}
             addButton={true}
             buttonText={"Create a grid"}
-            withBatchAction={true}
+            withBatchActions={true}
             withSearchBar={true}
             maxVisibleTags={4}
             showFavoritesToggle={true}

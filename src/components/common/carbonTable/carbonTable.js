@@ -87,7 +87,7 @@ const CarbonTable = (props) => {
       } else {
         newRows = [];
       }
-    }
+    } 
     setFilteredRows(newRows);
   }, [showFavorites, favorites]);
 
@@ -181,7 +181,7 @@ const CarbonTable = (props) => {
   };
 
   const renderRowCells = (rows, row, rowIndex) => {
-     return (
+    return (
       <React.Fragment>
         {row.cells.map((cell, cellIndex) => {
           const cellDef = tableDefinitionMap[cell.info.header];
@@ -418,7 +418,7 @@ const CarbonTable = (props) => {
                         onChange={onInputChange}
                       />
                     ) : null}
-                    {renderShowFavoritesToggle()}
+                    {showFavoritesToggle ? renderShowFavoritesToggle(): null}
                     {addButton ? (
                       <Button
                         size="small"
