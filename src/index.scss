@@ -120,6 +120,44 @@
   fill: green;
 }
 
+.table-header__toggle-container {
+  align-items: center;
+  display: flex;
+}
+
+.toggle__label--right {
+  padding-right: 1rem;
+}
+
+.toggle__label--small {
+  @include carbon--type-style('body-short-01');
+  color: $text-02;
+  cursor: pointer;
+  max-width: 23rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.bx--toggle__text--right {
+    margin-left: 0.5rem;
+  }
+}
+
+.small-toggle {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+
+  .bx--toggle-input__label .bx--toggle__switch {
+    margin-top: 0;
+  }
+
+  &__label {
+    @include carbon--type-style('body-short-01');
+    color: $text-02;
+  }
+}
+
 .table__favorite {
   height: 2rem;
   width: 2rem;

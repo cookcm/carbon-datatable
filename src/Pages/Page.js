@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ListCwTable from "../components/crosswords/ListCwTable";
+import ListCwTable from "../containers/ListCwTable";
 import TableSidePanel from "../components/common/TableSidePanel";
 import { Column, Grid, Row } from 'carbon-components-react';
 

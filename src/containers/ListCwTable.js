@@ -1,15 +1,18 @@
-import React from "react";
-import { CarbonTable } from "../common/carbonTable";
+import React, { useState, useEffect} from "react";
+import { CarbonTable } from "../components/common/carbonTable";
 import { Link, TableCell, Grid, Row, Column } from "carbon-components-react";
 import { EmptyState } from "@carbon/ibm-products/lib/components";
-import notFoundSvg from "../../images/emptyState/not-found-bright.svg";
-import FavoriteButton from "../../containers/FavoriteButton";
-import FavoriteCw from "../../containers/FavoriteCw";
+import notFoundSvg from "../images/emptyState/not-found-bright.svg";
+import FavoriteButton from "./FavoriteButton";
+import { useSelector } from "react-redux";
+import { selectFavorites } from "../stores/crosswordSlice";
 
 const ListCwTable = (props) => {
   const { onClick, onMoreDetails, data } = props;
+  const favorites = useSelector(selectFavorites);
 
   const { headerDefinition, rows } = data;
+
 
   const MoreDetailsLink = (props) => {
     const { resource, onClick } = props;
@@ -23,6 +26,8 @@ const ListCwTable = (props) => {
       </Link>
     );
   };
+
+
 
   //TO TEST EMPTY STATE
   // const rows =[]
@@ -48,17 +53,13 @@ const ListCwTable = (props) => {
 
   return (
     <Grid fullWidth>
-      <Row className="favorite-table">
-        <Column lg={16}>
-          <FavoriteCw allCw={rows} />
-        </Column>
-      </Row>
       <Row className="cw-table">
         <Column lg={16}>
           <CarbonTable
             id={"cwListTable"}
             headerDefinition={headerDefinition}
             rows={rows}
+            favorites={favorites}
             renderActions={
               onMoreDetails
                 ? (resource) => (
@@ -87,6 +88,8 @@ const ListCwTable = (props) => {
             withBatchAction={true}
             withSearchBar={true}
             maxVisibleTags={4}
+            showFavoritesToggle={true}
+            defaultShowFavoriteToggle={true}
           />
         </Column>
       </Row>

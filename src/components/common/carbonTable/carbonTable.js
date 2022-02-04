@@ -22,6 +22,7 @@ import { TagsBreakdown } from "../tags-breakdown";
 import { TagSet, StatusIcon } from "@carbon/ibm-products";
 import { types as tagTypes } from "carbon-components-react/es/components/Tag/Tag";
 import { getStatusIdentifiers } from "./../statusHelper";
+import SmallToggle from "../smallToggle";
 
 // import { useHistory } from " react-router-dom";
 const {
@@ -47,6 +48,7 @@ const CELL_DETAILS_KEY = "details";
 const CarbonTable = (props) => {
   const {
     rows,
+    favorites,
     headerDefinition,
     renderActions,
     renderFavorites,
@@ -61,7 +63,9 @@ const CarbonTable = (props) => {
     buttonText,
     withBatchActions,
     withSearchBar,
-    maxVisibleTags
+    maxVisibleTags,
+    showFavoritesToggle,
+    defaultShowFavoriteToggle
   } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,7 +74,22 @@ const CarbonTable = (props) => {
 
   const [startRow, setStartRow] = useState(0);
   const [endRow, setEndRow] = useState(defaultPageSize);
-  const [newRows, setNewRows] = useState(rows);
+  const [filteredRows, setFilteredRows] = useState(rows);
+  const [showFavorites, setShowFavorites] = useState(defaultShowFavoriteToggle);
+
+  useEffect(() => {
+    let newRows = rows;
+    if (showFavorites) {
+      if (favorites.length > 0) {
+        newRows = rows.filter((cw) => {
+          return favorites.indexOf(cw.id) !== -1;
+        });
+      } else {
+        newRows = [];
+      }
+    }
+    setFilteredRows(newRows);
+  }, [showFavorites, favorites]);
 
   const createTableDefinitionMap = (headerDefinition) => {
     const tableDefinitionMap = {};
@@ -161,8 +180,8 @@ const CarbonTable = (props) => {
     );
   };
 
-  const renderRowCells = (row, rowIndex) => {
-    return (
+  const renderRowCells = (rows, row, rowIndex) => {
+     return (
       <React.Fragment>
         {row.cells.map((cell, cellIndex) => {
           const cellDef = tableDefinitionMap[cell.info.header];
@@ -312,11 +331,36 @@ const CarbonTable = (props) => {
   //   return `${min}-${max} of ${total} items`;
   // };
 
+  const renderShowFavoritesToggle = () => {
+    if (showFavoritesToggle) {
+      return (
+        <div className="table-header__toggle-container">
+          <div
+            className="toggle__label--small toggle__label--right"
+            title="Show Favorites"
+          >
+            Show Favorites
+          </div>
+          <SmallToggle
+            id="TableShowFavoriteToggle"
+            aria-label="Show Favorites"
+            labelA={""}
+            labelB={""}
+            toggled={showFavorites ? true : false}
+            onToggle={() => setShowFavorites(!showFavorites)}
+            minWidth={"3.75rem"}
+          />
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
       <div id="cw-table">
         <DataTable
-          rows={newRows.slice(startRow, endRow)}
+          rows={filteredRows.slice(startRow, endRow)}
           headers={headerDefinition}
         >
           {({
@@ -333,7 +377,6 @@ const CarbonTable = (props) => {
             getTableContainerProps
           }) => {
             const batchActionProps = getBatchActionProps();
-
             return (
               <TableContainer
                 title={title || null}
@@ -375,6 +418,7 @@ const CarbonTable = (props) => {
                         onChange={onInputChange}
                       />
                     ) : null}
+                    {renderShowFavoritesToggle()}
                     {addButton ? (
                       <Button
                         size="small"
@@ -406,7 +450,7 @@ const CarbonTable = (props) => {
                         {withBatchActions ? (
                           <TableSelectRow {...getSelectionProps({ row })} />
                         ) : null}
-                        {renderRowCells(row, rowIndex)}
+                        {renderRowCells(rows, row, rowIndex)}
                       </TableRow>
                     ))}
                   </TableBody>
