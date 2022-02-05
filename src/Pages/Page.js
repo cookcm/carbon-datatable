@@ -9,9 +9,11 @@ const Page = () => {
     
   const [sidePanelResource, setSidePanelResource] = useState(null);
  
-  const onClick = (element) => {
-    console.log('on Click on Page')
+  const onClick = (evt) => {
+    alert("evt.target.value" + evt.target.value)
   }
+
+  
 
   const headerDefinition = [
     {
@@ -24,6 +26,14 @@ const Page = () => {
     },
     {
       id: 2,
+      header: "play",
+      key: "play",
+      isSortHeader: false,
+      isSortable: false,
+      dataType: "play"
+    },
+    {
+      id: 3,
       header: "Name",
       key: "name",
       isSortHeader: true,
@@ -38,7 +48,7 @@ const Page = () => {
     //   dataType: "severity"
     // },
     {
-      id: 4,
+      id: 5,
       header: "Date",
       key: "date",
       isSortHeader: true,
@@ -47,7 +57,7 @@ const Page = () => {
       dataType: "string"
     },
     {
-      id: 5,
+      id: 6,
       header: "Status",
       key: "status",
       dataType: "status",
@@ -55,7 +65,7 @@ const Page = () => {
       tooltipText: "status for the creation of the grid"
     },
     {
-      id: 6,
+      id: 7,
       header: "Categories",
       key: "tags",
       dataType: "tagSet",

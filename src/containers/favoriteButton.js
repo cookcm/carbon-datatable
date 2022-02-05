@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {useSelector, useDispatch} from 'react-redux'
-import {Favorite16 } from "@carbon/icons-react";
+import {Favorite16  as Favorite} from "@carbon/icons-react";
 import { Button } from "carbon-components-react";
 import {addRemoveFavorite, selectFavorites} from '../stores/crosswordSlice'
 
-import { ReactComponent as FavoriteFilled16 } from "../images/status/favorite--filled.svg";
+import { ReactComponent as FavoriteFilled } from "../images/status/favorite--filled.svg";
 
 const FavoriteButton = (props) => {
   const dispatch = useDispatch()
@@ -17,9 +17,9 @@ const FavoriteButton = (props) => {
   const slice = 'crossword'
 
   return (
-    <div className="table__favorite-cell">
+    <div className="table__favorite-button-container">
       <Button
-        className="table__favorite"
+        className="table__favorite-button"
         disabled={false}
         hasIconOnly
         iconDescription={
@@ -30,7 +30,7 @@ const FavoriteButton = (props) => {
         kind="ghost"
         onClick={() =>  dispatch(addRemoveFavorite(resourceId))}
         renderIcon={
-            favorites.includes(resourceId) ? FavoriteFilled16: Favorite16
+            favorites.includes(resourceId) ? FavoriteFilled: Favorite
         }
         size="default"
         tabIndex={0}

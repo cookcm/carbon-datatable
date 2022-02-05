@@ -170,15 +170,18 @@
     padding: 0 !important;
     padding-right: 0.5rem !important;
     width: 2rem;
+
+    .bx--btn--icon-only::before {
+      visibility: hidden; 
+    }
+    .bx--btn__icon {
+      height: 16px !important;
+      width: 16px !important;
+    }
+
   }
 }
-.bx--btn--icon-only::before {
-  visibility: hidden; 
-}
-.bx--btn__icon {
-  height: 16px !important;
-  width: 16px !important;
-}
+
 
 .table__favorite {
   align-items: center;
