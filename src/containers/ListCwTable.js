@@ -53,7 +53,7 @@ const ListCwTable = (props) => {
           kind="ghost"
           onClick={() => playGame(resource)}
           renderIcon={PlayFilled}
-          disabled={playIconEnabled}
+          disabled={!playIconEnabled}
           size="default"
           tabIndex={0}
           tooltipAlignment="end"

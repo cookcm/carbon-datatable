@@ -250,7 +250,7 @@ const CarbonTable = (props) => {
                 <CarbonLink
                   tabIndex="0"
                   className={"table__link"}
-                  onClick={() => cellDef.onClick(rows[rowIndex])}
+                  onClick={() => cellDef.onClick(cell)}
                   onKeyDown={handleEnterKey}
                 >
                   {cell.value}
@@ -447,7 +447,7 @@ const CarbonTable = (props) => {
                   </TableBody>
                 </Table>
                 {rows.length === 0 ? emptyState : null}
-                {pagination ? (
+                {hasPagination ? (
                   <Pagination
                     backwardText="Previous page"
                     disabled={false}

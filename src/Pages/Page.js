@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React, { cloneElement, useState } from "react";
 import ListCwTable from "../containers/ListCwTable";
 import TableSidePanel from "../components/common/TableSidePanel";
-import { Column, Grid, Row } from 'carbon-components-react';
+import { Column, Grid, Row } from "carbon-components-react";
+import classNames from "classnames";
 
 const Page = () => {
+  const mainClass = classNames("cathy_cw");
 
-  
-    
   const [sidePanelResource, setSidePanelResource] = useState(null);
- 
-  const onClick = (evt) => {
-    alert("evt.target.value" + evt.target.value)
-  }
 
-  
+  const onClick = (cell) => {
+    alert( "resource"+ cell.id + " " + cell.value );
+  };
 
   const headerDefinition = [
     {
@@ -223,31 +221,31 @@ const Page = () => {
   const data = {
     headerDefinition,
     rows
-  }
-      
+  };
+
   return (
-    <div>
-      
-      <TableSidePanel
-            resource={sidePanelResource}
-            onClose={() => setSidePanelResource(null)}
-            onClick={onClick}
+    <main id="carbonTableMainBody" className={mainClass}>
+      <div>
+        <TableSidePanel
+          resource={sidePanelResource}
+          onClose={() => setSidePanelResource(null)}
+          onClick={onClick}
         />
-      <Grid narrow>
-         <Row>
-            <Column className='bx--col-padding'>
+        <Grid narrow>
+          <Row>
+            <Column className="bx--col-padding">
               <h2>List of crosswords</h2>
               <ListCwTable
-                onClick={onClick}
                 onMoreDetails={(resource) => {
                   setSidePanelResource(resource);
                 }}
                 data={data}
               />
-           </Column>
+            </Column>
           </Row>
-      </Grid>
-    </div>
+        </Grid>
+      </div>
+    </main>
   );
 };
 
