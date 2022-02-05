@@ -37,7 +37,7 @@ const ListCwTable = (props) => {
     resource?.cells.map((cell) => {
       if ( cell?.id.split(':')[1] === 'status'){
         let state = cell?.value?.kind
-        if (state === 'ready'){
+        if (state === 'ready' || state === 'validated'){
             playIconEnabled = true
         }
       }
