@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {
   DataTable,
@@ -54,6 +54,7 @@ const CarbonTable = (props) => {
     headerDefinition,
     data,
     favorites,
+    readyList,
     renderActions,
     renderFavorites,
     renderOverflow,
@@ -67,7 +68,9 @@ const CarbonTable = (props) => {
     withSearchBar,
     maxVisibleTags,
     showFavoritesToggle,
-    defaultShowFavoriteToggle
+    defaultShowFavoriteToggle,
+    showReadyToggle,
+    defaultShowReadyToggle
   } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,20 +81,40 @@ const CarbonTable = (props) => {
   const [endRow, setEndRow] = useState(pagination?.pageSize);
   const [filteredRows, setFilteredRows] = useState(data);
   const [showFavorites, setShowFavorites] = useState(defaultShowFavoriteToggle);
+  const [showReady, setShowReady] = useState(defaultShowReadyToggle);
+
+  const intersect = (a, b) => {
+    var setA = new Set(a);
+    var setB = new Set(b);
+    var intersection = new Set([...setA].filter((x) => setB.has(x)));
+    return Array.from(intersection);
+  };
 
   useEffect(() => {
     let newRows = data;
-    if (showFavorites) {
-      if (favorites.length > 0) {
+    let filterList = [];
+    let showAll = false;
+    if (showFavorites && !showReady) {
+      filterList = favorites;
+    } else if (!showFavorites && showReady) {
+      filterList = readyList;
+    } else if (showFavorites && showReady) {
+      filterList = intersect(favorites, readyList);
+    } else {
+      showAll = true;
+    }
+    if (!showAll) {
+      if (filterList.length > 0) {
         newRows = data.filter((cw) => {
-          return favorites.indexOf(cw.id) !== -1;
+          return filterList.indexOf(cw.id) !== -1;
         });
       } else {
         newRows = [];
       }
-    } 
+    }
+
     setFilteredRows(newRows);
-  }, [showFavorites, favorites]);
+  }, [showFavorites, showReady, favorites, readyList, data]);
 
   const createTableDefinitionMap = (headerDefinition) => {
     const tableDefinitionMap = {};
@@ -134,7 +157,7 @@ const CarbonTable = (props) => {
     // if (header.dataType === 'icon') {
     //   // suppress icon header
     //   return null
-    // } 
+    // }
     if (typeof header.colSpan !== "undefined") {
       headerProps = { ...headerProps, colSpan: header.colSpan };
     }
@@ -186,7 +209,7 @@ const CarbonTable = (props) => {
   };
 
   const renderRowCells = (filRows, rows, row, rowIndex) => {
-     return (
+    return (
       <React.Fragment>
         {row.cells.map((cell, cellIndex) => {
           const cellDef = tableDefinitionMap[cell.info.header];
@@ -238,7 +261,7 @@ const CarbonTable = (props) => {
               );
             }
           } else if (cellDef?.dataType === "play") {
-            finalValue = renderPlayButton(rows[rowIndex])
+            finalValue = renderPlayButton(rows[rowIndex]);
           } else if (cellDef?.dataType === "link") {
             finalValue = "";
             if (
@@ -347,9 +370,34 @@ const CarbonTable = (props) => {
     return null;
   };
 
+  const renderShowReadyToggle = () => {
+    if (showReadyToggle) {
+      return (
+        <div className="table-header__toggle-container">
+          <div
+            className="toggle__label--small toggle__label--right"
+            title="Show Ready Grids"
+          >
+            Show Ready Grids
+          </div>
+          <SmallToggle
+            id="TableShowReadyToggle"
+            aria-label="Show Ready Grids"
+            labelA={""}
+            labelB={""}
+            toggled={showReady ? true : false}
+            onToggle={() => setShowReady(!showReady)}
+            minWidth={"3.75rem"}
+          />
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
-      <div id={id} className='cb-table'>
+      <div id={id} className="cb-table">
         <DataTable
           rows={filteredRows.slice(startRow, endRow)}
           headers={headerDefinition}
@@ -409,7 +457,8 @@ const CarbonTable = (props) => {
                         onChange={onInputChange}
                       />
                     ) : null}
-                    {showFavoritesToggle ? renderShowFavoritesToggle(): null}
+                    {showReadyToggle ? renderShowReadyToggle() : null}
+                    {showFavoritesToggle ? renderShowFavoritesToggle() : null}
                     {addButton ? (
                       <Button
                         size="small"
@@ -472,47 +521,45 @@ const CarbonTable = (props) => {
   );
 };
 
-
 CarbonTable.propTypes = {
-  id: PropTypes.string.isRequired,          // Unique id for the table
-  title: PropTypes.string,  
-  description: PropTypes.string,                // Title displayed above the table
+  id: PropTypes.string.isRequired, // Unique id for the table
+  title: PropTypes.string,
+  description: PropTypes.string, // Title displayed above the table
   headerDefinition: PropTypes.arrayOf(
-      PropTypes.shape({
-          id: PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number
-          ]),                               // Carbon title requires unqiue id for each header
-          header: PropTypes.string,         // The text displayed in the header
-          key: PropTypes.string,            // The value key matching the key of the data
-          dataType: PropTypes.oneOf([       // The type of data displayed in the cell
-              'string',
-              'link',
-              'severity',
-              'status',
-              'tags',
-              'tagSet',
-              'play'
-          ]),
-          className: PropTypes.string,       // className to set on the header
-          getCellClassName: PropTypes.func,  // getCellClassName can set the cell classname based on the row data
-          getIcon: PropTypes.func,           // If dataType icon, getIcon should be provided to return the icon based on the cell data and rowIndex
-          onClick: PropTypes.func,           // If dataType link, onClick should be provided to specific the link action based on cell data and rowIndex
-          colSpan: PropTypes.number          // Use to merge columns e.g. set to 2 for icon and text combination, should be applied to support text
-      })
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Carbon title requires unqiue id for each header
+      header: PropTypes.string, // The text displayed in the header
+      key: PropTypes.string, // The value key matching the key of the data
+      dataType: PropTypes.oneOf([
+        // The type of data displayed in the cell
+        "string",
+        "link",
+        "severity",
+        "status",
+        "tags",
+        "tagSet",
+        "play"
+      ]),
+      className: PropTypes.string, // className to set on the header
+      getCellClassName: PropTypes.func, // getCellClassName can set the cell classname based on the row data
+      getIcon: PropTypes.func, // If dataType icon, getIcon should be provided to return the icon based on the cell data and rowIndex
+      onClick: PropTypes.func, // If dataType link, onClick should be provided to specific the link action based on cell data and rowIndex
+      colSpan: PropTypes.number // Use to merge columns e.g. set to 2 for icon and text combination, should be applied to support text
+    })
   ).isRequired,
-  data: PropTypes.arrayOf(                  // Data for the table with matching keys defined in the header definition
-      PropTypes.object
+  data: PropTypes.arrayOf(
+    // Data for the table with matching keys defined in the header definition
+    PropTypes.object
   ).isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object),
-  renderActions: PropTypes.func,            // Render function to return node based on the row data
+  renderActions: PropTypes.func, // Render function to return node based on the row data
   renderFavorites: PropTypes.func,
-  renderOverflow: PropTypes.func,           // Render function to return node based on the row data
+  renderOverflow: PropTypes.func, // Render function to return node based on the row data
   renderPlayButton: PropTypes.func,
-  emptyState: PropTypes.node,               // Empty state to render, if no row data
-  pagination: PropTypes.shape({  
-      pageSize: PropTypes.number,
-      pageSizes: PropTypes.array
+  emptyState: PropTypes.node, // Empty state to render, if no row data
+  pagination: PropTypes.shape({
+    pageSize: PropTypes.number,
+    pageSizes: PropTypes.array
   }),
   isLoading: PropTypes.bool,
   withBatchActions: PropTypes.bool,
@@ -520,10 +567,10 @@ CarbonTable.propTypes = {
   maxVisibleTags: PropTypes.number,
   showFavoritesToggle: PropTypes.bool,
   defaultShowFavoriteToggle: PropTypes.bool,
+  showReadyToggle: PropTypes.bool,
+  defaultShowReadyToggle: PropTypes.bool,
   buttonText: PropTypes.string,
   addButton: PropTypes.bool
-
-                   
 };
 
 export default CarbonTable;

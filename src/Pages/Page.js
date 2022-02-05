@@ -223,6 +223,8 @@ const Page = () => {
     rows
   };
 
+  const readyList=["3","6","8"]
+
   return (
     <main id="carbonTableMainBody" className={mainClass}>
       <div>
@@ -240,6 +242,7 @@ const Page = () => {
                   setSidePanelResource(resource);
                 }}
                 data={data}
+                readyList={readyList}
               />
             </Column>
           </Row>

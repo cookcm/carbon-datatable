@@ -5,11 +5,11 @@ import { EmptyState } from "@carbon/ibm-products/lib/components";
 import notFoundSvg from "../images/emptyState/not-found-bright.svg";
 import FavoriteButton from "./FavoriteButton";
 import { useSelector } from "react-redux";
-import { selectFavorites } from "../stores/crosswordSlice";
+import { selectFavorites, selectReadyList } from "../stores/crosswordSlice";
 import {PlayFilled16  as PlayFilled} from "@carbon/icons-react";
 
 const ListCwTable = (props) => {
-  const { onClick, onMoreDetails, data, onPlayGame } = props;
+  const { onMoreDetails, data, readyList} = props;
   const favorites = useSelector(selectFavorites);
 
   const { headerDefinition, rows } = data;
@@ -100,6 +100,7 @@ const ListCwTable = (props) => {
             headerDefinition={headerDefinition}
             data={rows}
             favorites={favorites}
+            readyList={readyList}
             renderActions={
               onMoreDetails
                 ? (resource) => (
@@ -129,6 +130,9 @@ const ListCwTable = (props) => {
             maxVisibleTags={4}
             showFavoritesToggle={true}
             defaultShowFavoriteToggle={true}
+            showReadyToggle={true}
+            defaultShowReadyToggle={true}
+            readyList={readyList}
           />
         </Column>
       </Row>
