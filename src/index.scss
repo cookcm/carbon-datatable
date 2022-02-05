@@ -184,17 +184,7 @@
 
 
 .table__favorite-cell {
-  align-items: center;
-  display: flex;
-
-  .bx--assistive-text {
-    transform: translate(0, -24px) !important;
-  }
-  
   #icon {
-    // margin: 0 0.5rem !important;
-    // margin-inline-start: 0 !important;
-    // margin-inline-end: 0 !important;
     path {
       fill: red;
     }

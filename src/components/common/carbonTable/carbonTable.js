@@ -185,7 +185,7 @@ const CarbonTable = (props) => {
     );
   };
 
-  const renderRowCells = (rows, row, rowIndex) => {
+  const renderRowCells = (filRows, rows, row, rowIndex) => {
      return (
       <React.Fragment>
         {row.cells.map((cell, cellIndex) => {
@@ -291,8 +291,8 @@ const CarbonTable = (props) => {
         })}
 
         {renderFavorites ? renderFavorites(rows[rowIndex]) : null}
-        {renderActions ? renderActions(rows[rowIndex]) : null}
-        {renderOverflow ? renderOverflow(rows[rowIndex]) : null}
+        {renderActions ? renderActions(filRows[rowIndex]) : null}
+        {renderOverflow ? renderOverflow(filRows[rowIndex]) : null}
       </React.Fragment>
     );
   };
@@ -441,7 +441,7 @@ const CarbonTable = (props) => {
                         {withBatchActions ? (
                           <TableSelectRow {...getSelectionProps({ row })} />
                         ) : null}
-                        {renderRowCells(rows, row, rowIndex)}
+                        {renderRowCells(filteredRows, rows, row, rowIndex)}
                       </TableRow>
                     ))}
                   </TableBody>
